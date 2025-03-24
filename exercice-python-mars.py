@@ -143,3 +143,80 @@
 
 # 
 
+
+#test compte string
+# def freq(string,passedkey):
+
+#     #step1: A list variable is declared and initialized to an empty list.
+#     words = []
+
+#     #step2: Break the string into list of words
+#     words = string.split() # or string.lower().split()
+
+#     #step3: Declare a dictionary
+#     Dict = {}
+
+#     #step4: Use for loop to iterate words and values to the dictionary
+#     for key in words:
+#         if(key == passedkey):
+#             Dict[key] = words.count(key)   
+#     #step5: Print the dictionary
+#     print("Total Count:",Dict)
+
+#step6: Call function and pass string in it
+# freq("Mary had a little lamb Little lamb, little lamb Mary had a little lamb.Its fleece was white as snow And everywhere that Mary went Mary went, Mary went \
+# Everywhere that Mary went The lamb was sure to go","little")
+
+
+print(len('example'))
+
+# text = "example"
+# length = len(text)  # No AttributeError, correct method usage
+
+# # using Try- except 
+# try:
+#     # Attempting to divide 10 by 0
+#     result = 10 / 0
+# except ZeroDivisionError:
+#     # Handling the ZeroDivisionError and printing an error message
+#     print("Error: Cannot divide by zero")
+# # This line will be executed regardless of whether an exception occurred
+# print("outside of try and except block")
+
+
+################################################
+## Gestion des erreurs - ex: division et sqrt ##
+################################################
+
+# def safe_division():
+#         numerator = int(input("Introduisez le numérateur:"))
+#         denominator = int(input("Introduisez le dénominateur:"))
+#         try:
+#             result = numerator/denominator
+#         except ZeroDivisionError:
+#             print('Erreur : division par 0')
+#         except ValueError:
+#             print('Vous devez introduire un nombre')
+#         else:
+#             print("Ca a marché !", result)
+#             return result
+#         finally:
+#             print("Safe_divison a fait le taf !")
+
+# safe_division()
+
+# import math
+
+# def safe_square():
+#             a = float(input('Entrez un nombre : '))
+#     try :
+#         result = math.sqrt(a)
+#     except ValueError :
+#         print("Tu as entré un ", type(a))
+#     except :
+#         print("Y a quelque chose qui ne va pas mother fucker")
+#     else :
+#         return result
+
+
+# safe_square()
