@@ -1,6 +1,28 @@
+##################################################
+## Fonction pour calucler la fréquence des mots ##
+##################################################
+# from IBM lab
 
-# # nom = input("Quel est votre nom ? ")
-# # print(nom + " mother fucker !")
+# chaine_a_analyser = "Mary had a little lamb Little lamb, little lamb Mary had a little lamb.Its fleece was white as snow And everywhere that Mary went Mary went, Mary went \
+# Everywhere that Mary went The lamb was sure to go"
+
+# def frequence_mots(chaine):
+# '''
+# cette fonction analyse le nombre d'occurence de chaque mot dans une string
+# '''
+#     mots = chaine.lower().replace(',',' ').replace('.',' ').split()
+#     frequences = {}
+#     for mot in set(mots):
+#         frequences[mot] = mots.count(mot)
+#     return print(frequences)
+
+# frequence_mots(chaine_a_analyser)
+
+
+
+####################
+## Calcul du PGCD ##
+####################
 
 # # a = int(input("Choisissez les multiples à afficher : "))
 
@@ -16,9 +38,29 @@
 # # for i in range(0, b, a):
 # #     print(i)
 
+##############################
+## Calcul de Pi Monte-Carlo ##
+##############################
+#######monte-carlo
+# import random
+# points_dans_cercle = 0
+# nbre_iteration = 10000000
+
+# for i in range(0,nbre_iteration):
+#     a = random.random()
+#     b = random.random()
+#     if (a*a + b*b) <=1:
+#         points_dans_cercle = points_dans_cercle + 1
+
+# print(points_dans_cercle)
+# pi = points_dans_cercle / nbre_iteration * 4
+# print(pi)
 
 
 
+###############################
+## Des tests de mot de passe ##
+###############################
 
 # a = True
 
@@ -55,6 +97,9 @@
 #         print("Bienvenue")
 #         a = False
 
+
+# Evaluer des sports achievements
+
 # sport_achievement ={"Serena Williams":23, "Lionel Messi":7, "Michael Phelps":23, "Usain Blot":8, "Roger Federer":20, "Cristiano Ronaldo":5}
 # a = input("Nous allons vérifier si un sportif a plus de 10 achievements. Quel sportif voulez-vous vérifier ?")
 # if a in sport_achievement.keys() and  sport_achievement[a]>=10:
@@ -73,35 +118,8 @@
 # for index, fruit in fruits:
 #     print(f"At position {index}, I found a {fruit}")
 
-#######monte-carlo
-# import random
-# points_dans_cercle = 0
-# nbre_iteration = 10000000
 
-# for i in range(0,nbre_iteration):
-#     a = random.random()
-#     b = random.random()
-#     if (a*a + b*b) <=1:
-#         points_dans_cercle = points_dans_cercle + 1
 
-# print(points_dans_cercle)
-# pi = points_dans_cercle / nbre_iteration * 4
-# print(pi)
-
-########PGCD
-# a = int(input("Entrez le premier nombre : "))
-# b = int(input("Entrez le deuxième nombre : "))
-# nbre_plus_grand = max(a,b)
-# nbre_plus_petit = min(a,b)
-# PGCD = nbre_plus_petit
-# i = 2
-
-# while (nbre_plus_grand % PGCD) != 0:
-#     while nbre_plus_petit % i != 0 :
-#         i = i + 1
-#     PGCD = int(nbre_plus_petit / i)
-#     i = i + 1
-# print(PGCD)
 
 
 # def greet(name):
@@ -123,15 +141,5 @@
 # for _ in range(3):
 #     print(greet("Alice"))
 
-#calcul fréquence des mots
-chaine_a_analyser = "Mary had a little lamb Little lamb, little lamb Mary had a little lamb.Its fleece was white as snow And everywhere that Mary went Mary went, Mary went \
-Everywhere that Mary went The lamb was sure to go"
+# 
 
-def frequence_mots(chaine):
-    mots = chaine.lower().replace(',',' ').replace('.',' ').split()
-    frequences = {}
-    for mot in set(mots):
-        frequences[mot] = mots.count(mot)
-    return print(frequences)
-
-frequence_mots(chaine_a_analyser)
