@@ -37,16 +37,28 @@ class serpent:
     
     def deplacer(self):
         if self.direction == 'haut':
-            self.position_y -= ma_fenetre_de_jeu.pas
+            if self.position_y > 0 :
+                self.position_y -= ma_fenetre_de_jeu.pas
+            else:
+                self.position_y = ma_fenetre_de_jeu.hauteur
 
         elif self.direction == "bas":
-            self.position_y += ma_fenetre_de_jeu.pas
+            if self.position_y < ma_fenetre_de_jeu.hauteur:
+                self.position_y += ma_fenetre_de_jeu.pas
+            else:
+                self.position_y = 0
 
         elif self.direction == "droite":
-            self.position_x += ma_fenetre_de_jeu.pas
+            if self.position_x < ma_fenetre_de_jeu.largeur:
+                self.position_x += ma_fenetre_de_jeu.pas
+            else:
+                self.position_x = 0
 
         elif self.direction == "gauche":
-            self.position_x -= ma_fenetre_de_jeu.pas
+            if self.position_x > 0:
+                self.position_x -= ma_fenetre_de_jeu.pas
+            else:
+                self.position_x = ma_fenetre_de_jeu.largeur
 
     # def grandir(self):
     #     self.taille += 1
@@ -73,13 +85,13 @@ while running:
         #     ma_tete_de_serpent.se_deplacer_vers_la_droite()
 
         elif event.type == pygame.KEYUP:
-            if event.key == pygame.K_UP:
+            if event.key == pygame.K_UP and mon_serpent.direction != 'bas':
                 mon_serpent.direction = 'haut'
-            elif event.key == pygame.K_DOWN:
+            elif event.key == pygame.K_DOWN and mon_serpent.direction != 'haut':
                 mon_serpent.direction = 'bas'
-            elif event.key == pygame.K_LEFT:
+            elif event.key == pygame.K_LEFT and mon_serpent.direction != 'droite':
                 mon_serpent.direction = 'gauche'
-            elif event.key == pygame.K_RIGHT:
+            elif event.key == pygame.K_RIGHT and mon_serpent.direction != 'gauche':
                 mon_serpent.direction = 'droite'
     
     screen.fill(ma_fenetre_de_jeu.couleur_de_fond)
