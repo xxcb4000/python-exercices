@@ -1,5 +1,9 @@
 
 
+
+
+#on va devoir changer l'endroit où on affiche
+
 import pygame
 pygame.init()
 
