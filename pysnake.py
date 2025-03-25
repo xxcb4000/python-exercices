@@ -49,16 +49,16 @@ def calcul_nouvelles_coordonnées(position_x, position_y, direction):
 
 #ma classe serpent
 class serpent:
-    def __init__(self, rayon = 5, couleur = (0,255,0), taille= 1, direction = 'droite', position_init = (300,300), index = 0):
+    def __init__(self, rayon = 5, couleur = (0,255,0), taille= 4, direction = 'droite', position_init = (300,300), index = 0):
         self.rayon = rayon
         self.couleur = couleur
         self.taille = taille
         self.direction = direction
-        self.positions = [position_init]
+        self.positions = [(270,300),(280,300),(290,300),(300,300)]
         self.index = index
     
     def avancer(self):
-        self.positions[self.index] = calcul_nouvelles_coordonnées(self.positions[self.index][0], self.positions[self.index][1], self.direction)
+        self.positions[self.index] = calcul_nouvelles_coordonnées(self.positions[self.index-1][0], self.positions[self.index-1][1], self.direction)
         self.index = (self.index + 1) % self.taille
 
     def dessiner(self):
@@ -66,7 +66,7 @@ class serpent:
             pygame.draw.circle(screen, self.couleur, (self.positions[i][0], self.positions[i][1]), self.rayon)
 
     def grandir(self):
-        self.positions.append(self.positions[self.taille - 1])
+        self.positions.append(self.positions[self.index])
         self.taille += 1
 
 #mon objet serpent
@@ -99,9 +99,10 @@ while running:
     screen.fill(ma_fenetre_de_jeu.couleur_de_fond)
     
     #gestion du serpent
-    mon_serpent.dessiner()
-    mon_serpent.avancer()
 
+    mon_serpent.avancer()
+    mon_serpent.dessiner()
+    #mon_serpent.grandir()
 
     #affichage
     pygame.display.flip()
