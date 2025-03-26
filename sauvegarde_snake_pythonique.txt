@@ -1,7 +1,4 @@
 
-
-#code_source_snake_pythonique = """
-
 import pygame
 pygame.init()
 
@@ -112,9 +109,4 @@ while running:
     #horloge
     ma_fenetre_de_jeu.tick()
 
-pygame.quit() #"""
-
-
-# sauvegarde = 'sauvegarde_snake_pythonique.txt'
-# with open(sauvegarde, 'w') as sauvegarde:
-#     sauvegarde.write(code_source_snake_pythonique)
+pygame.quit()
