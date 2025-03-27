@@ -37,9 +37,9 @@ class serpent:
     
     def avancer(self):
         prochaine_position = self.calcul_nouvelles_coordonnées(self.positions[self.index-1][0], self.positions[self.index-1][1], self.direction)
-        if abs(prochaine_position[0] - mes_pommes.position_x) <5 and  abs(prochaine_position[1] - mes_pommes.position_y) <5:
+        if abs(prochaine_position[0] - ma_pomme.position_x) <5 and  abs(prochaine_position[1] - ma_pomme.position_y) <5:
             mon_serpent.grandir()
-            mes_pommes.couleur = (255,255,255)
+            ma_pomme.couleur = (255,255,255)
         elif prochaine_position in self.positions:
             global pause
             pause = True
@@ -82,7 +82,7 @@ class serpent:
 
 
 class pomme:
-    def __init__(self, position_x = -10, position_y= -10, rayon = 8, couleur =(255,0,0), duree = 5):
+    def __init__(self, position_x = -10, position_y= -10, rayon = 5, couleur =(255,0,0), duree = 5):
         self.position_x = position_x
         self.position_y = position_y
         self.rayon = rayon
@@ -99,10 +99,39 @@ class pomme:
             self.apparition = pygame.time.get_ticks()
         pygame.draw.circle(screen, self.couleur, (self.position_x, self.position_y), self.rayon)
 
+class ui:
+    def __init__(self, largeur, hauteur, position_x, position_y, actif, texte, couleur_boite, couleur_texte, actions):
+        self.largeur = largeur
+        self.hauteur = hauteur
+        self.position_x = position_x
+        self.position_y = position_y
+        self.actif = actif
+        self.texte = texte
+        self.couleur_boite = couleur_boite
+        self.couleur_texte = couleur_texte
+        self.actions = actions
+    
+    def creer(self):
+        le_rect = pygame.draw.rect(screen, self.couleur_boite, (ma_fenetre_de_jeu.largeur/2 - self.largeur/2+ self.position_x, ma_fenetre_de_jeu.hauteur/2 - self.hauteur/2 +self.position_y, self.largeur, self.hauteur))
+        le_rect
+        if self.texte:
+            font = pygame.font.SysFont(None, 40)
+            texte_in = font.render(self.texte, True, self.couleur_texte)  
+            screen.blit(texte_in, ((ma_fenetre_de_jeu.largeur/2 - self.largeur/2+ self.position_x+10), ma_fenetre_de_jeu.hauteur/2 - self.hauteur/2 +self.position_y+10)) 
+        #if le_rect.collidepoint(pygame.mouse.get_pos()
+        #if self.actif:
+
+
 
 #initialisation du jeu
 mon_serpent = serpent()
-mes_pommes = pomme()
+ma_pomme = pomme()
+ma_boite_globale = ui(300,300, 0, 0, True, False , (55, 76, 22), (255,255,255), False)
+ma_boite_commencer = ui(250,50, 0, -100, True, 'Commencer' , (81, 127, 12), (255,255,255), False)
+ma_boite_meilleurs_scores = ui(250,50, 0, -40, True, 'Meilleurs scores', (81, 127, 12),(255,255,255), False)
+# ma_boite_commencer = 
+# ma_boite_meilleurs_scores =
+# ma_boite_quitter = 
 global pause
 global running
 global menu
@@ -116,10 +145,10 @@ while running:
 
     while menu:
         screen.fill(ma_fenetre_de_jeu.couleur_de_fond)
-        pygame.draw.rect(screen, (56, 111, 72), (ma_fenetre_de_jeu.largeur/2 - 400/2, ma_fenetre_de_jeu.hauteur/2 - 300/2, 400, 300))
-        font = pygame.font.SysFont(None, 20)
-        texte = font.render("Appuyez sur ""Espace"" pour commencer", True, (255, 255, 255))  
-        screen.blit(texte, (150, 250)) 
+
+        ma_boite_globale.creer()
+        ma_boite_commencer.creer()
+        ma_boite_meilleurs_scores.creer()
         pygame.display.flip()
 
         for event in pygame.event.get():
@@ -155,7 +184,7 @@ while running:
     #gestion du serpent
     if not pause:
         screen.fill(ma_fenetre_de_jeu.couleur_de_fond)
-        mes_pommes.ajouter()
+        ma_pomme.ajouter()
         mon_serpent.avancer()
         mon_serpent.dessiner()
         #affichage
