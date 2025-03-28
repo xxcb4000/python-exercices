@@ -112,12 +112,24 @@ class ui:
         self.actions = actions
     
     def creer(self):
-        le_rect = pygame.draw.rect(screen, self.couleur_boite, (ma_fenetre_de_jeu.largeur/2 - self.largeur/2+ self.position_x, ma_fenetre_de_jeu.hauteur/2 - self.hauteur/2 +self.position_y, self.largeur, self.hauteur))
+        le_rect = pygame.draw.rect(screen, self.couleur_boite, (ma_fenetre_de_jeu.largeur/2 - self.largeur/2,  self.position_y, self.largeur, self.hauteur),0,10)
         le_rect
         if self.texte:
             font = pygame.font.SysFont(None, 40)
             texte_in = font.render(self.texte, True, self.couleur_texte)  
-            screen.blit(texte_in, ((ma_fenetre_de_jeu.largeur/2 - self.largeur/2+ self.position_x+10), ma_fenetre_de_jeu.hauteur/2 - self.hauteur/2 +self.position_y+10)) 
+            screen.blit(texte_in, ((ma_fenetre_de_jeu.largeur/2 - texte_in.get_width()/2), self.position_y + self.hauteur/2 - texte_in.get_height()/2 +3)) 
+        if le_rect.collidepoint(pygame.mouse.get_pos()) and self.actif:
+            self.couleur_boite = (81, 127, 12)
+            for event in pygame.event.get():
+                if event.type == pygame.MOUSEBUTTONUP:
+                    global running
+                    global menu
+                    running = True
+                    menu = False
+
+        elif self.actif:
+            self.couleur_boite = (81, 100, 12)
+
         #if le_rect.collidepoint(pygame.mouse.get_pos()
         #if self.actif:
 
@@ -126,9 +138,11 @@ class ui:
 #initialisation du jeu
 mon_serpent = serpent()
 ma_pomme = pomme()
-ma_boite_globale = ui(300,300, 0, 0, True, False , (55, 76, 22), (255,255,255), False)
-ma_boite_commencer = ui(250,50, 0, -100, True, 'Commencer' , (81, 127, 12), (255,255,255), False)
-ma_boite_meilleurs_scores = ui(250,50, 0, -40, True, 'Meilleurs scores', (81, 127, 12),(255,255,255), False)
+ma_boite_globale = ui(300,300, 0, 100, False, '' , (55, 76, 22), (255,255,255), False)
+ma_boite_commencer = ui(250,50, 0, ma_boite_globale.position_y+20, True, 'Commencer' , (81, 127, 12), (255,255,255), False)
+ma_boite_meilleurs_scores = ui(250,50, 0, ma_boite_commencer.position_y +70, True, 'Meilleurs scores', (81, 127, 12),(255,255,255), False)
+ma_boite_auto_pilote = ui(250,50, 0, ma_boite_meilleurs_scores.position_y +70, True, 'Auto-pilote', (81, 127, 12),(255,255,255), False)
+ma_boite_quitter = ui(250,50, 0, ma_boite_auto_pilote.position_y +70, True, 'Quitter', (81, 127, 12),(255,255,255), False)
 # ma_boite_commencer = 
 # ma_boite_meilleurs_scores =
 # ma_boite_quitter = 
@@ -149,6 +163,8 @@ while running:
         ma_boite_globale.creer()
         ma_boite_commencer.creer()
         ma_boite_meilleurs_scores.creer()
+        ma_boite_auto_pilote.creer()
+        ma_boite_quitter.creer()
         pygame.display.flip()
 
         for event in pygame.event.get():
