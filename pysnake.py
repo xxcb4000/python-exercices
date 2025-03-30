@@ -100,7 +100,7 @@ class pomme:
         pygame.draw.circle(screen, self.couleur, (self.position_x, self.position_y), self.rayon)
 
 class ui:
-    def __init__(self, largeur, hauteur, position_x, position_y, actif, texte, couleur_boite, couleur_texte, actions):
+    def __init__(self, largeur, hauteur, position_x, position_y, actif, texte, couleur_boite, couleur_texte, actions, le_rect):
         self.largeur = largeur
         self.hauteur = hauteur
         self.position_x = position_x
@@ -110,26 +110,26 @@ class ui:
         self.couleur_boite = couleur_boite
         self.couleur_texte = couleur_texte
         self.actions = actions
+        self.le_rect = le_rect
     
     def creer(self):
-        le_rect = pygame.draw.rect(screen, self.couleur_boite, (ma_fenetre_de_jeu.largeur/2 - self.largeur/2,  self.position_y, self.largeur, self.hauteur),0,10)
-        le_rect
+        self.le_rect = pygame.draw.rect(screen, self.couleur_boite, (ma_fenetre_de_jeu.largeur/2 - self.largeur/2,  self.position_y, self.largeur, self.hauteur),0,10)
+        self.le_rect
         if self.texte:
             font = pygame.font.SysFont(None, 40)
             texte_in = font.render(self.texte, True, self.couleur_texte)  
             screen.blit(texte_in, ((ma_fenetre_de_jeu.largeur/2 - texte_in.get_width()/2), self.position_y + self.hauteur/2 - texte_in.get_height()/2 +3)) 
-        if le_rect.collidepoint(pygame.mouse.get_pos()) and self.actif:
+    
+    def tester_collision(self, clic_souris):
+        if self.le_rect.collidepoint(pygame.mouse.get_pos()) and self.actif:
+            self.couleur_boite = (74, 145, 12)
+            if clic_souris:
+                return True
+            else:
+                return False
+
+        else:
             self.couleur_boite = (81, 127, 12)
-            for event in pygame.event.get():
-                if event.type == pygame.MOUSEBUTTONUP:
-                    global running
-                    global menu
-                    running = True
-                    menu = False
-
-        elif self.actif:
-            self.couleur_boite = (81, 100, 12)
-
         #if le_rect.collidepoint(pygame.mouse.get_pos()
         #if self.actif:
 
@@ -138,11 +138,11 @@ class ui:
 #initialisation du jeu
 mon_serpent = serpent()
 ma_pomme = pomme()
-ma_boite_globale = ui(300,300, 0, 100, False, '' , (55, 76, 22), (255,255,255), False)
-ma_boite_commencer = ui(250,50, 0, ma_boite_globale.position_y+20, True, 'Commencer' , (81, 127, 12), (255,255,255), False)
-ma_boite_meilleurs_scores = ui(250,50, 0, ma_boite_commencer.position_y +70, True, 'Meilleurs scores', (81, 127, 12),(255,255,255), False)
-ma_boite_auto_pilote = ui(250,50, 0, ma_boite_meilleurs_scores.position_y +70, True, 'Auto-pilote', (81, 127, 12),(255,255,255), False)
-ma_boite_quitter = ui(250,50, 0, ma_boite_auto_pilote.position_y +70, True, 'Quitter', (81, 127, 12),(255,255,255), False)
+ma_boite_globale = ui(300,300, 0, 100, False, '' , (55, 76, 22), (255,255,255), False, (0,0,0,0))
+ma_boite_commencer = ui(250,50, 0, ma_boite_globale.position_y+20, True, 'Commencer' , (81, 127, 12), (255,255,255), False, (0,0,0,0))
+ma_boite_meilleurs_scores = ui(250,50, 0, ma_boite_commencer.position_y +70, True, 'Meilleurs scores', (81, 127, 12),(255,255,255), False, (0,0,0,0))
+ma_boite_auto_pilote = ui(250,50, 0, ma_boite_meilleurs_scores.position_y +70, True, 'Auto-pilote', (81, 127, 12),(255,255,255), False, (0,0,0,0))
+ma_boite_quitter = ui(250,50, 0, ma_boite_auto_pilote.position_y +70, True, 'Quitter', (81, 127, 12),(255,255,255), False, (0,0,0,0))
 # ma_boite_commencer = 
 # ma_boite_meilleurs_scores =
 # ma_boite_quitter = 
@@ -167,14 +167,41 @@ while running:
         ma_boite_quitter.creer()
         pygame.display.flip()
 
+        ma_boite_commencer.tester_collision(False)
+        ma_boite_meilleurs_scores.tester_collision(False)
+        ma_boite_auto_pilote.tester_collision(False)
+        ma_boite_quitter.tester_collision(False)
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+                menu = False
+                pause = False
             elif event.type == pygame.KEYUP:
                 if event.key == pygame.K_SPACE:
                     menu = False
                     running = True
                     pause = False
+            elif event.type == pygame.MOUSEBUTTONUP:
+                if ma_boite_commencer.tester_collision(True):
+                    menu = False
+                    running = True
+                    pause = False
+                elif ma_boite_auto_pilote.tester_collision(True):
+                    menu = False
+                    running = True
+                    pause = False
+                elif ma_boite_meilleurs_scores.tester_collision(True):
+                    menu = False
+                    running = False
+                    pause = False
+                elif ma_boite_quitter.tester_collision(True):
+                    menu = False
+                    running = False
+                    pause = False
+                
+
+
 
     #gestion des événements
     for event in pygame.event.get():
